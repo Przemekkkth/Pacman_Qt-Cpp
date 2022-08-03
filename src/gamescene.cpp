@@ -8,6 +8,7 @@ GameScene::GameScene(QObject *parent)
 {
     loadPixmap();
     setSceneRect(0,0, Resources::RESOLUTION.width(), Resources::RESOLUTION.height());
+    setBackgroundBrush(QBrush(Resources::BG_COLOR));
     initLabyrinth();
     renderLabyrinth();
 }

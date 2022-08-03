@@ -3,6 +3,7 @@
 #include <QString>
 #include <QPoint>
 #include <QSize>
+#include <QColor>
 
 class Resources
 {
@@ -19,6 +20,7 @@ public:
     };
 
     constexpr static const QSize RESOLUTION = QSize(448, 596);
+    constexpr static const QColor BG_COLOR = QColor(0, 0, 0);
 
     static void loadLabyrinth();
 
