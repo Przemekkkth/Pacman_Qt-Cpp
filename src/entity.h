@@ -1,6 +1,6 @@
 #ifndef ENTITY_H
 #define ENTITY_H
-
+#include <QPixmap>
 class Entity
 {
 
@@ -19,6 +19,7 @@ protected:
     float m_screenPosY;
     int m_tileX;
     int m_tileY;
+    const QPixmap m_thingsPixmap;
 };
 
 #endif // ENTITY_H

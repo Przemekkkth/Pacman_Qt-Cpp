@@ -5,6 +5,7 @@ SOURCES += \
     src/gamescene.cpp \
     src/labyrinth.cpp \
     src/main.cpp \
+    src/pacman.cpp \
     src/resources.cpp \
     src/view.cpp
 
@@ -12,6 +13,7 @@ HEADERS += \
     src/entity.h \
     src/gamescene.h \
     src/labyrinth.h \
+    src/pacman.h \
     src/resources.h \
     src/view.h
 

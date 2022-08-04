@@ -3,6 +3,7 @@
 
 #include <QGraphicsScene>
 #include "labyrinth.h"
+#include "pacman.h"
 #include <QPixmap>
 
 class GameScene : public QGraphicsScene
@@ -17,12 +18,13 @@ private:
     void loadPixmap();
     void initLabyrinth();
     void renderLabyrinth();
+    void renderPacman();
     void saveScene();
 
     QPixmap m_labyrinthPixmap;
     QPixmap m_labyrinthPixmaps[32];
     Labyrinth m_labyrinthObj;
-
+    Pacman m_packman;
     // QGraphicsScene interface
 protected:
     virtual void keyPressEvent(QKeyEvent *event) override;

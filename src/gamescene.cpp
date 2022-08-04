@@ -14,6 +14,7 @@ GameScene::GameScene(QObject *parent)
     setBackgroundBrush(QBrush(Resources::BG_COLOR));
     initLabyrinth();
     renderLabyrinth();
+    renderPacman();
 }
 
 void GameScene::loadPixmap()
@@ -54,6 +55,12 @@ void GameScene::renderLabyrinth()
             addItem(labyrinthTileItem);
         }
     }
+}
+
+void GameScene::renderPacman()
+{
+    m_packman.setPos(m_packman.getScreenPosX(), m_packman.getScreenPosY());
+    addItem(&m_packman);
 }
 
 void GameScene::saveScene()

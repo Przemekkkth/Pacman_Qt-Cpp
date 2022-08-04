@@ -27,6 +27,9 @@ public:
     static const QString PATH_TO_LABYRINTH_PIXMAP;
     constexpr static const unsigned int LABYRINTH_TILE_SIZE = 16;
 
+    static const QString PATH_TO_THINGS_PIXMAP;
+    constexpr static const unsigned int THINGS_TILE_SIZE = 30;
+
 
 
     constexpr static const unsigned int PACMAN_COUNT_ANIM_FRAMES = 3;

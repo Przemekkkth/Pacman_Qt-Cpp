@@ -1,13 +1,14 @@
 #include "entity.h"
 #include <cmath>
-
+#include "resources.h"
 
 Entity::Entity(int tilePosX, int tilePosY)
+    : m_thingsPixmap(Resources::PATH_TO_THINGS_PIXMAP)
 {
     m_tileX = tilePosX;
     m_tileY = tilePosY;
-    m_screenPosX = tilePosX * 16.0f + 8.0f + 8.0f;
-    m_screenPosY = tilePosY * 16.0f + 8.0f;
+    m_screenPosX = tilePosX * 16.0f ;// + 8.0f;
+    m_screenPosY = tilePosY * 16.0f - 6.0f;
 }
 
 float Entity::getScreenPosX()
@@ -32,20 +33,20 @@ int Entity::getTileY()
 
 void Entity::move(float x, float y)
 {
-    screenPosX += x;
-    screenPosY += y;
+    m_screenPosX += x;
+    m_screenPosY += y;
 
-    if ((int)(screenPosX + 8) % 16 == 0 && (int)(screenPosY + 8) % 16 == 0)
+    if ((int)(m_screenPosX + 8) % 16 == 0 && (int)(m_screenPosY + 8) % 16 == 0)
     {
-        tileX = (int) round((screenPosX - 8) / 16);
-        tileY = (int) round((screenPosY - 8) / 16);
+        m_tileX = (int) round((m_screenPosX - 8) / 16);
+        m_tileY = (int) round((m_screenPosY - 8) / 16);
     }
 }
 
 void Entity::teleport(int x, int y)
 {
-    tileX = x;
-    tileY = y;
-    screenPosX = x * 16.0f + 8.0f;
-    screenPosY = y * 16.0f + 8.0f;
+    m_tileX = x;
+    m_tileY = y;
+    m_screenPosX = x * 16.0f + 8.0f;
+    m_screenPosY = y * 16.0f + 8.0f;
 }
