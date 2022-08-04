@@ -2,6 +2,9 @@
 #include "resources.h"
 #include <QDebug>
 #include <QGraphicsPixmapItem>
+#include <QKeyEvent>
+#include <QPainter>
+#include <QDir>
 
 GameScene::GameScene(QObject *parent)
     : QGraphicsScene{parent}
@@ -51,4 +54,28 @@ void GameScene::renderLabyrinth()
             addItem(labyrinthTileItem);
         }
     }
+}
+
+void GameScene::saveScene()
+{
+    static int index = 0;
+    QString fileName = QDir::currentPath() + QDir::separator() + "screen" + QString::number(index++) + ".png";
+    QRect rect = sceneRect().toAlignedRect();
+    QImage image(rect.size(), QImage::Format_ARGB32);
+    image.fill(Qt::transparent);
+    QPainter painter(&image);
+    render(&painter);
+    image.save(fileName);
+    qDebug() << "saved " << fileName;
+}
+
+void GameScene::keyPressEvent(QKeyEvent *event)
+{
+    switch (event->key()) {
+        case Qt::Key_Z:
+            saveScene();
+        break;
+    }
+
+    QGraphicsScene::keyPressEvent(event);
 }
