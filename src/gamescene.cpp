@@ -2,6 +2,7 @@
 #include "resources.h"
 #include <QDebug>
 #include <QGraphicsPixmapItem>
+#include <QGraphicsLineItem>
 #include <QKeyEvent>
 #include <QPainter>
 #include <QDir>
@@ -55,6 +56,28 @@ void GameScene::renderLabyrinth()
             addItem(labyrinthTileItem);
         }
     }
+
+#ifdef QT_DEBUG
+    QPen linePen((QColor(Qt::white)));
+    linePen.setWidth(1);
+    for (int i = 0; i < int(Labyrinth::LABYRINTH_WIDTH); i++)
+    {
+        QGraphicsLineItem *lineItem = new QGraphicsLineItem();
+        lineItem->setLine(i*Resources::LABYRINTH_TILE_SIZE, 0,
+                         i*Resources::LABYRINTH_TILE_SIZE, Resources::RESOLUTION.height());
+        lineItem->setPen(linePen);
+        addItem(lineItem);
+    }
+    for (int i = 0; i < int(Labyrinth::LABYRINTH_HEIGHT); i++)
+    {
+        QGraphicsLineItem *lineItem = new QGraphicsLineItem();
+        lineItem->setLine(0, i * Resources::LABYRINTH_TILE_SIZE,
+                         Resources::RESOLUTION.width(), i * Resources::LABYRINTH_TILE_SIZE);
+        lineItem->setPen(linePen);
+        addItem(lineItem);
+    }
+
+#endif
 }
 
 void GameScene::renderPacman()

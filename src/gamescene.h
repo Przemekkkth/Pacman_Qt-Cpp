@@ -22,7 +22,7 @@ private:
     void saveScene();
 
     QPixmap m_labyrinthPixmap;
-    QPixmap m_labyrinthPixmaps[32];
+    QPixmap m_labyrinthPixmaps[32];\
     Labyrinth m_labyrinthObj;
     Pacman m_packman;
     // QGraphicsScene interface
