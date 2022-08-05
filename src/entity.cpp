@@ -36,10 +36,10 @@ void Entity::move(float x, float y)
     m_screenPosX += x;
     m_screenPosY += y;
 
-    if ((int)(m_screenPosX + 8) % 16 == 0 && (int)(m_screenPosY + 8) % 16 == 0)
+    if ((int)(m_screenPosX + 8 + Resources::THINGS_TILE_SIZE/2) % 16 == 0 && (int)(m_screenPosY + 8 + Resources::THINGS_TILE_SIZE/2) % 16 == 0)
     {
-        m_tileX = (int) round((m_screenPosX - 8) / 16);
-        m_tileY = (int) round((m_screenPosY - 8) / 16);
+        m_tileX = (int) round((m_screenPosX - 8 + Resources::THINGS_TILE_SIZE/2) / 16);
+        m_tileY = (int) round((m_screenPosY - 8 + Resources::THINGS_TILE_SIZE/2) / 16);
     }
 }
 
