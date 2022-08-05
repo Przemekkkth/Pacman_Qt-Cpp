@@ -28,6 +28,8 @@ private:
     QPixmap m_upPixmap, m_downPixmap, m_leftPixmap, m_rightPixmap;
     int m_currentIndex;
     QTimer m_timer;
+    constexpr static float SPEED = 0.8f;
+    constexpr static int ANIM_SPEED = 125;
 public:
 
     void queueDirection(Resources::Direction dir);

@@ -8,7 +8,7 @@ Pacman::Pacman()
     setPixmap(m_rightPixmap);
     setTransformOriginPoint(Resources::THINGS_TILE_SIZE, Resources::THINGS_TILE_SIZE);
     connect(&m_timer, &QTimer::timeout, this, &Pacman::updatePixmap);
-    m_timer.start(125);
+    m_timer.start(ANIM_SPEED);
     setFlag(QGraphicsItem::ItemIsFocusable);
 }
 
@@ -72,16 +72,16 @@ void Pacman::move()
         switch (m_directions.front())
         {
         case Resources::Direction::Up:
-            Entity::move(0, -0.4f);
+            Entity::move(0, -SPEED);
             break;
         case Resources::Direction::Down:
-            Entity::move(0, 0.4f);
+            Entity::move(0, SPEED);
             break;
         case Resources::Direction::Left:
-            Entity::move(-0.4f, 0);
+            Entity::move(-SPEED, 0);
             break;
         case Resources::Direction::Right:
-            Entity::move(0.4f, 0);
+            Entity::move(SPEED, 0);
             break;
         case Resources::Direction::Unset:
 
