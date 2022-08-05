@@ -53,6 +53,7 @@ void GameScene::loop()
 
         m_labyrinthObj.removeDot(m_pacman, nullptr, nullptr, nullptr, nullptr);
         renderLabyrinth();
+        teleportTunnels(m_pacman);
     }
 }
 
@@ -177,6 +178,15 @@ bool GameScene::pacmanCanMove()
     }
     return true;
 }
+
+void GameScene::teleportTunnels(Entity* entity)
+{
+    if (entity->getTileX() == 0 && entity->getTileY() == 17)
+        entity->teleport(26, 17);
+    else if (entity->getTileX() == 27 && entity->getTileY() == 17)
+        entity->teleport(1, 17);
+}
+
 
 void GameScene::keyPressEvent(QKeyEvent *event)
 {

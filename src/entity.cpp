@@ -47,6 +47,6 @@ void Entity::teleport(int x, int y)
 {
     m_tileX = x;
     m_tileY = y;
-    m_screenPosX = x * 16.0f + 8.0f;
-    m_screenPosY = y * 16.0f + 8.0f;
+    m_screenPosX = x * 16.0f + 8.0f - Resources::THINGS_TILE_SIZE/2;
+    m_screenPosY = y * 16.0f + 8.0f - Resources::THINGS_TILE_SIZE/2;
 }

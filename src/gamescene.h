@@ -26,6 +26,7 @@ private:
     void renderPacman();
     void saveScene();
     bool pacmanCanMove();
+    void teleportTunnels(Entity* entity);
 
     QPixmap m_labyrinthPixmap;
     QPixmap m_labyrinthPixmaps[32];
