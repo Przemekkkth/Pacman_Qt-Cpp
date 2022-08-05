@@ -5,6 +5,7 @@
 #include "labyrinth.h"
 #include "pacman.h"
 #include <QPixmap>
+#include <QTimer>
 
 class GameScene : public QGraphicsScene
 {
@@ -26,6 +27,7 @@ private:
     Labyrinth m_labyrinthObj;
     Pacman m_packman;
     // QGraphicsScene interface
+    int currentFrame;
 protected:
     virtual void keyPressEvent(QKeyEvent *event) override;
 };

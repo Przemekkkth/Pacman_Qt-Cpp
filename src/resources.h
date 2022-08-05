@@ -34,9 +34,9 @@ public:
 
     constexpr static const unsigned int PACMAN_COUNT_ANIM_FRAMES = 3;
     constexpr static const QPoint PACMAN_UP = QPoint(0, 0);
-    constexpr static const QPoint PACMAN_DOWN = QPoint(45, 0);
-    constexpr static const QPoint PACMAN_LEFT = QPoint(90, 0);
-    constexpr static const QPoint PACMAN_RIGHT = QPoint(135, 0);
+    constexpr static const QPoint PACMAN_DOWN = QPoint(90, 0);
+    constexpr static const QPoint PACMAN_LEFT = QPoint(180, 0);
+    constexpr static const QPoint PACMAN_RIGHT = QPoint(270, 0);
 
     constexpr static const unsigned int BLINKY_COUNT_ANIM_FRAMES = 2;
     constexpr static const QPoint BLINKY_UP = QPoint(0, 15);

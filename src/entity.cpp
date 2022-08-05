@@ -7,8 +7,8 @@ Entity::Entity(int tilePosX, int tilePosY)
 {
     m_tileX = tilePosX;
     m_tileY = tilePosY;
-    m_screenPosX = tilePosX * 16.0f + 8.0f + 8.0f - 15.0f;
-    m_screenPosY = tilePosY * 16.0f + 8.0f - 15.0f;
+    m_screenPosX = tilePosX * Resources::LABYRINTH_TILE_SIZE + 8.0f + 8.0f - Resources::THINGS_TILE_SIZE/2;
+    m_screenPosY = tilePosY * Resources::LABYRINTH_TILE_SIZE + 8.0f - Resources::THINGS_TILE_SIZE/2;
 }
 
 float Entity::getScreenPosX()

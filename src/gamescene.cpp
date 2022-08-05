@@ -82,6 +82,7 @@ void GameScene::renderLabyrinth()
 
 void GameScene::renderPacman()
 {
+    m_packman.setFocus();
     m_packman.setPos(m_packman.getScreenPosX(), m_packman.getScreenPosY());
     addItem(&m_packman);
 }
