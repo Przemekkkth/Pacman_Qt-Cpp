@@ -1,4 +1,6 @@
 #include "labyrinth.h"
+#include "pacman.h"
+#include "ghost.h"
 
 Labyrinth::Labyrinth(): m_tiles{
 //y=>                 0,  1,  2,  3,  4,  5,  6,  7,  8,  9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35
@@ -58,4 +60,21 @@ bool Labyrinth::isIntersection(int x, int y)
         || (x == 1 && y == 29) || (x == 3 && y == 29) || (x == 6 && y == 29) || (x == 9 && y == 29) || (x == 12 && y == 29) || (x == 15 && y == 29) || (x == 18 && y == 29) || (x == 21 && y == 29) || (x == 24 && y == 29) || (x == 26 && y == 29)
         || (x == 1 && y == 32) || (x == 12 && y == 32) || (x == 15 && y == 32) || (x == 26 && y == 32)
         || (x == 13 && y == 14) || (x == 14 && y == 15);
+}
+
+void Labyrinth::removeDot(Pacman* pacman, Ghost* ghost1, Ghost* ghost2, Ghost* ghost3, Ghost* ghost4)
+{
+    if (m_tiles[pacman->getTileX()][pacman->getTileY()] == 26)
+    {
+        m_tiles[pacman->getTileX()][pacman->getTileY()] = 30;
+        pacman->eatDot();
+    }
+    else if (m_tiles[pacman->getTileX()][pacman->getTileY()] == 27)
+    {
+        m_tiles[pacman->getTileX()][pacman->getTileY()] = 30;
+//        ghost1->setFrightened(true);
+//        ghost2->setFrightened(true);
+//        ghost3->setFrightened(true);
+//        ghost4->setFrightened(true);
+    }
 }

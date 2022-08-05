@@ -3,6 +3,8 @@
 
 #include <QObject>
 
+class Pacman;
+class Ghost;
 class Labyrinth
 {
 public:
@@ -14,6 +16,7 @@ public:
     uint tiles(int x, int y) const;
     bool tileBlocksEntity(int x, int y);
     bool isIntersection(int x, int y);
+    void removeDot(Pacman* pacman, Ghost* ghost1, Ghost* ghost2, Ghost* ghost3, Ghost* ghost4);
 private:
     uint m_tiles[LABYRINTH_WIDTH][LABYRINTH_HEIGHT];
     static constexpr int NONE_FIELD = 30;

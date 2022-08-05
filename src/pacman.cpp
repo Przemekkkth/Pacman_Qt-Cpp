@@ -1,7 +1,7 @@
 #include "pacman.h"
 #include <QKeyEvent>
 Pacman::Pacman()
-    : QGraphicsPixmapItem(), Entity(13, 26), m_dead(false), m_currentIndex(0)
+    : QGraphicsPixmapItem(), Entity(13, 26), m_eatenDots(0), m_dead(false), m_currentIndex(0)
 {
     loadPixmap();
     //setPixmap(m_thingsPixmap.copy(0,0, Resources::THINGS_TILE_SIZE, Resources::THINGS_TILE_SIZE));

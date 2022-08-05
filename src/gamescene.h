@@ -8,6 +8,7 @@
 #include <QTimer>
 #include <QElapsedTimer>
 
+class QGraphicsPixmapItem;
 class GameScene : public QGraphicsScene
 {
     Q_OBJECT
@@ -28,6 +29,7 @@ private:
 
     QPixmap m_labyrinthPixmap;
     QPixmap m_labyrinthPixmaps[32];
+    QGraphicsPixmapItem* m_labyrinthPixmapItems[Labyrinth::LABYRINTH_WIDTH][Labyrinth::LABYRINTH_HEIGHT];
     Labyrinth m_labyrinthObj;
     Pacman* m_pacman;
     // QGraphicsScene interface

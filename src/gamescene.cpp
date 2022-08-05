@@ -51,6 +51,8 @@ void GameScene::loop()
             m_pacman->stop();
         }
 
+        m_labyrinthObj.removeDot(m_pacman, nullptr, nullptr, nullptr, nullptr);
+        renderLabyrinth();
     }
 }
 
@@ -79,24 +81,14 @@ void GameScene::initLabyrinth()
             index++;
         }
     }
-}
-
-void GameScene::initPackman()
-{
-    m_pacman = new Pacman();
-    m_pacman->setFocus();
-    m_pacman->setPos(m_pacman->getScreenPosX(), m_pacman->getScreenPosY());
-}
-
-void GameScene::renderLabyrinth()
-{
     for (int i = 0; i < int(Labyrinth::LABYRINTH_WIDTH); i++)
     {
         for (int j = 0; j < int(Labyrinth::LABYRINTH_HEIGHT); j++)
         {
-            QGraphicsPixmapItem *labyrinthTileItem = new QGraphicsPixmapItem(m_labyrinthPixmaps[ m_labyrinthObj.tiles(i, j) ]);
-            labyrinthTileItem->setPos(i*Resources::LABYRINTH_TILE_SIZE, j*Resources::LABYRINTH_TILE_SIZE);
-            addItem(labyrinthTileItem);
+            m_labyrinthPixmapItems[i][j] =  new QGraphicsPixmapItem();
+            m_labyrinthPixmapItems[i][j]->setPixmap(m_labyrinthPixmaps[ m_labyrinthObj.tiles(i, j) ]);
+            m_labyrinthPixmapItems[i][j]->setPos(i*Resources::LABYRINTH_TILE_SIZE, j*Resources::LABYRINTH_TILE_SIZE);
+            addItem(m_labyrinthPixmapItems[i][j]);
         }
     }
 
@@ -121,6 +113,24 @@ void GameScene::renderLabyrinth()
     }
 
 #endif
+}
+
+void GameScene::initPackman()
+{
+    m_pacman = new Pacman();
+    m_pacman->setFocus();
+    m_pacman->setPos(m_pacman->getScreenPosX(), m_pacman->getScreenPosY());
+}
+
+void GameScene::renderLabyrinth()
+{
+    for (int i = 0; i < int(Labyrinth::LABYRINTH_WIDTH); i++)
+    {
+        for (int j = 0; j < int(Labyrinth::LABYRINTH_HEIGHT); j++)
+        {
+            m_labyrinthPixmapItems[i][j]->setPixmap(m_labyrinthPixmaps[ m_labyrinthObj.tiles(i, j) ]);
+        }
+    }
 }
 
 void GameScene::renderPacman()
