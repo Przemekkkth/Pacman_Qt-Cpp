@@ -46,6 +46,12 @@ void GameScene::loop()
             m_pacman->stop();
         }
 
+
+        if(m_labyrinthObj.isIntersection(m_pacman->getTileX(), m_pacman->getTileY()))
+        {
+            m_pacman->stop();
+        }
+
     }
 }
 

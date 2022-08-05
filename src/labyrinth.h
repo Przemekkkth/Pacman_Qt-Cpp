@@ -13,8 +13,12 @@ public:
 
     uint tiles(int x, int y) const;
     bool tileBlocksEntity(int x, int y);
+    bool isIntersection(int x, int y);
 private:
     uint m_tiles[LABYRINTH_WIDTH][LABYRINTH_HEIGHT];
+    static constexpr int NONE_FIELD = 30;
+    static constexpr int SMALL_DOT_FIELD = 26;
+    static constexpr int BIG_DOT_FIELD = 27;
 };
 
 #endif // LABYRINTH_H
