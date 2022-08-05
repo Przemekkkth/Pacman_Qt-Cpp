@@ -99,7 +99,7 @@ void Pacman::stop()
 {
     if (m_directions.size() > 1)
     {
-        if ((int)(m_screenPosX + 8) % 16 == 0 && (int)(m_screenPosY + 8) % 16 == 0)
+        if ((int)(m_screenPosX + 8 + Resources::THINGS_TILE_SIZE/2) % 16 == 0 && (int)(m_screenPosY + 8 + Resources::THINGS_TILE_SIZE/2) % 16 == 0)
         {
             switch (m_directions.front())
             {
