@@ -12,6 +12,7 @@ public:
     static const uint LABYRINTH_HEIGHT = 36;
 
     uint tiles(int x, int y) const;
+    bool tileBlocksEntity(int x, int y);
 private:
     uint m_tiles[LABYRINTH_WIDTH][LABYRINTH_HEIGHT];
 };

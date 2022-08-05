@@ -6,6 +6,7 @@
 #include "pacman.h"
 #include <QPixmap>
 #include <QTimer>
+#include <QElapsedTimer>
 
 class GameScene : public QGraphicsScene
 {
@@ -14,20 +15,27 @@ public:
     explicit GameScene(QObject *parent = nullptr);
 
 signals:
-
+private slots:
+    void loop();
 private:
     void loadPixmap();
     void initLabyrinth();
+    void initPackman();
     void renderLabyrinth();
     void renderPacman();
     void saveScene();
+    bool pacmanCanMove();
 
     QPixmap m_labyrinthPixmap;
-    QPixmap m_labyrinthPixmaps[32];\
+    QPixmap m_labyrinthPixmaps[32];
     Labyrinth m_labyrinthObj;
-    Pacman m_packman;
+    Pacman* m_pacman;
     // QGraphicsScene interface
     int currentFrame;
+    QTimer m_timer;
+    QElapsedTimer m_elapsedTimer;
+    float m_deltaTime, m_loopTime;
+    const float m_loopSpeed;
 protected:
     virtual void keyPressEvent(QKeyEvent *event) override;
 };

@@ -39,3 +39,8 @@ uint Labyrinth::tiles(int x, int y) const
 {
     return m_tiles[x][y];
 }
+
+bool Labyrinth::tileBlocksEntity(int x, int y)
+{
+    return m_tiles[x][y] != 30 && m_tiles[x][y] != 26 && m_tiles[x][y] != 27;
+}

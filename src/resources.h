@@ -68,6 +68,7 @@ public:
     constexpr static const unsigned int DEAD_PACMAN_COUNT_ANIM_FRAMES = 12;
     constexpr static const QPoint DEAD_PACMAN = QPoint(0, 75);
 
+    constexpr static int FPS = 60;
 };
 
 #endif // RESOURCES_H
