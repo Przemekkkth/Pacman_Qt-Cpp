@@ -47,7 +47,7 @@ void Pacman::loadPixmap()
     m_downPixmap  = m_thingsPixmap.copy(Resources::PACMAN_DOWN.x(), Resources::PACMAN_DOWN.y(), Resources::THINGS_TILE_SIZE*Resources::PACMAN_COUNT_ANIM_FRAMES, Resources::THINGS_TILE_SIZE);
     m_leftPixmap  = m_thingsPixmap.copy(Resources::PACMAN_LEFT.x(), Resources::PACMAN_LEFT.y(), Resources::THINGS_TILE_SIZE*Resources::PACMAN_COUNT_ANIM_FRAMES, Resources::THINGS_TILE_SIZE);
     m_rightPixmap = m_thingsPixmap.copy(Resources::PACMAN_RIGHT.x(), Resources::PACMAN_RIGHT.y(), Resources::THINGS_TILE_SIZE*Resources::PACMAN_COUNT_ANIM_FRAMES, Resources::THINGS_TILE_SIZE);
-
+    m_deadPixmap  = m_thingsPixmap.copy(Resources::DEAD_PACMAN.x(), Resources::DEAD_PACMAN.y(), Resources::THINGS_TILE_SIZE*Resources::DEAD_PACMAN_COUNT_ANIM_FRAMES, Resources::THINGS_TILE_SIZE);
 }
 
 void Pacman::queueDirection(Resources::Direction dir)

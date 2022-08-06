@@ -26,6 +26,7 @@ private:
     bool m_dead;
 
     QPixmap m_upPixmap, m_downPixmap, m_leftPixmap, m_rightPixmap;
+    QPixmap m_deadPixmap;
     int m_currentIndex;
     QTimer m_timer;
     constexpr static float SPEED = 0.8f;
