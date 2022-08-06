@@ -24,6 +24,7 @@ GameScene::GameScene(QObject *parent)
 
 
     connect(&m_timer, &QTimer::timeout, this, &GameScene::loop);
+    connect(m_pacman, &Pacman::deadAnimOver, this, &GameScene::restart);
     m_timer.start(int(1000.0f/Resources::FPS));
     m_elapsedTimer.start();
 }
@@ -63,11 +64,22 @@ void GameScene::loop()
         }
         renderLabyrinth();
         teleportTunnels(m_pacman);
+        teleportTunnels(m_blinky);
 
         handleGhostMovement(m_blinky);
-
+        handleGhostFrightening(m_blinky);
         m_blinky->setPos(m_blinky->getScreenPosX(), m_blinky->getScreenPosY());
     }
+}
+
+void GameScene::restart()
+{
+    if (m_blinky->isOutOfCage()) m_blinky->teleport(13, 14);
+//    if (pinky->isOutOfCage()) pinky->teleport(13, 14);
+//    if (inky->isOutOfCage()) inky->teleport(13, 14);
+//    if (clyde->isOutOfCage()) clyde->teleport(13, 14);
+    m_pacman->teleport(13, 26);
+    m_pacman->setDead(false);
 }
 
 void GameScene::loadPixmap()
@@ -282,6 +294,26 @@ bool GameScene::ghostCanMove(Ghost *ghost)
         break;
     default:
         return false;
+    }
+}
+
+void GameScene::handleGhostFrightening(Ghost *ghost)
+{
+    if (m_pacman->getTileX() == ghost->getTileX() && m_pacman->getTileY() == ghost->getTileY())
+    {
+        if (ghost->isFrightened())
+        {
+            ghost->teleport(13, 14);
+            ghost->setFrightened(false);
+        }
+        else
+        {
+            m_pacman->setDead(true);
+            m_blinky->teleport(-2, -2);
+//			pinky->teleport(-2, -2);
+//			inky->teleport(-2, -2);
+//			clyde->teleport(-2, -2);
+        }
     }
 }
 

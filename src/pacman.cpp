@@ -19,26 +19,39 @@ void Pacman::updatePixmap()
         setPixmap(m_thingsPixmap.copy(0,0, Resources::THINGS_TILE_SIZE, Resources::THINGS_TILE_SIZE));
         return;
     }
+    if(!m_dead)
+    {
+        if(m_directions.front() == Resources::Direction::Up)
+        {
+            setPixmap(m_upPixmap.copy(m_currentIndex*Resources::THINGS_TILE_SIZE, 0, Resources::THINGS_TILE_SIZE, Resources::THINGS_TILE_SIZE));
+        }
+        else if(m_directions.front() == Resources::Direction::Right)
+        {
+            setPixmap(m_rightPixmap.copy(m_currentIndex*Resources::THINGS_TILE_SIZE, 0, Resources::THINGS_TILE_SIZE, Resources::THINGS_TILE_SIZE));
+        }
+        else if(m_directions.front() == Resources::Direction::Down)
+        {
+            setPixmap(m_downPixmap.copy(m_currentIndex*Resources::THINGS_TILE_SIZE, 0, Resources::THINGS_TILE_SIZE, Resources::THINGS_TILE_SIZE));
+        }
+        else if(m_directions.front() == Resources::Direction::Left)
+        {
+            setPixmap(m_leftPixmap.copy(m_currentIndex*Resources::THINGS_TILE_SIZE, 0, Resources::THINGS_TILE_SIZE, Resources::THINGS_TILE_SIZE));
+        }
 
-    if(m_directions.front() == Resources::Direction::Up)
-    {
-        setPixmap(m_upPixmap.copy(m_currentIndex*Resources::THINGS_TILE_SIZE, 0, Resources::THINGS_TILE_SIZE, Resources::THINGS_TILE_SIZE));
+        m_currentIndex += 1;
+        m_currentIndex %= Resources::PACMAN_COUNT_ANIM_FRAMES;
     }
-    else if(m_directions.front() == Resources::Direction::Right)
+    else
     {
-        setPixmap(m_rightPixmap.copy(m_currentIndex*Resources::THINGS_TILE_SIZE, 0, Resources::THINGS_TILE_SIZE, Resources::THINGS_TILE_SIZE));
-    }
-    else if(m_directions.front() == Resources::Direction::Down)
-    {
-        setPixmap(m_downPixmap.copy(m_currentIndex*Resources::THINGS_TILE_SIZE, 0, Resources::THINGS_TILE_SIZE, Resources::THINGS_TILE_SIZE));
-    }
-    else if(m_directions.front() == Resources::Direction::Left)
-    {
-        setPixmap(m_leftPixmap.copy(m_currentIndex*Resources::THINGS_TILE_SIZE, 0, Resources::THINGS_TILE_SIZE, Resources::THINGS_TILE_SIZE));
+        setPixmap(m_deadPixmap.copy(m_currentIndex*Resources::THINGS_TILE_SIZE, 0, Resources::THINGS_TILE_SIZE, Resources::THINGS_TILE_SIZE));
+        m_currentIndex += 1;
+        if(m_currentIndex == Resources::DEAD_PACMAN_COUNT_ANIM_FRAMES)
+        {
+            emit deadAnimOver();
+        }
+        m_currentIndex %= Resources::DEAD_PACMAN_COUNT_ANIM_FRAMES;
     }
 
-    m_currentIndex += 1;
-    m_currentIndex %= Resources::PACMAN_COUNT_ANIM_FRAMES;
 }
 
 void Pacman::loadPixmap()
@@ -136,6 +149,7 @@ int Pacman::getDotsEaten()
 void Pacman::setDead(bool d)
 {
     m_dead = d;
+    m_currentIndex = 0;
 }
 
 bool Pacman::isDead()

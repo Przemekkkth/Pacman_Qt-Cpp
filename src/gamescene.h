@@ -19,6 +19,7 @@ public:
 signals:
 private slots:
     void loop();
+    void restart();
 private:
     void loadPixmap();
     void initLabyrinth();
@@ -33,6 +34,7 @@ private:
     void handleGhostMovement(Ghost* ghost);
     float calculateDistance(Ghost* ghost, int addX, int addY);
     bool ghostCanMove(Ghost* ghost);
+    void handleGhostFrightening(Ghost* ghost);
 
     QPixmap m_labyrinthPixmap;
     QPixmap m_labyrinthPixmaps[32];

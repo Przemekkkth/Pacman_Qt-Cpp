@@ -16,7 +16,7 @@ public:
     explicit Pacman();
 
 signals:
-
+    void deadAnimOver();
 private slots:
     void updatePixmap();
 private:
