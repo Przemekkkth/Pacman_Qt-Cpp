@@ -5,8 +5,9 @@
 
 class Pacman;
 class Ghost;
-class Labyrinth
+class Labyrinth : public QObject
 {
+    Q_OBJECT
 public:
     explicit Labyrinth();
 
@@ -17,6 +18,8 @@ public:
     bool tileBlocksEntity(int x, int y);
     bool isIntersection(int x, int y);
     void removeDot(Pacman* pacman, Ghost* ghost1, Ghost* ghost2, Ghost* ghost3, Ghost* ghost4);
+signals:
+    void bigDotIsEaten();
 private:
     uint m_tiles[LABYRINTH_WIDTH][LABYRINTH_HEIGHT];
     static constexpr int NONE_FIELD = 30;

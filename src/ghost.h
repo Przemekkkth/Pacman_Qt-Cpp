@@ -47,6 +47,8 @@ protected:
     QPixmap m_frightenedPixmap;
 
     bool m_isAnimated;
+
+    const int WEAK_MODE_SPEED;
 };
 
 #endif // GHOST_H

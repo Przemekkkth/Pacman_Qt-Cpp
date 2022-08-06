@@ -20,6 +20,7 @@ signals:
 private slots:
     void loop();
     void restart();
+    void weakAllGhosts();
 private:
     void loadPixmap();
     void initLabyrinth();

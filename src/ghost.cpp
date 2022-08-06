@@ -2,11 +2,11 @@
 
 Ghost::Ghost(int tilePosX, int tilePosY, int destinationX, int destinationY)
     : Entity(tilePosX, tilePosY), m_scattering(true), m_outOfCage(false),
-      m_decision(true), m_frightened(false)
+      m_decision(true), m_frightened(false), WEAK_MODE_SPEED(4000)
 {
     setDestination(destinationX, destinationY);
     setDirection(Resources::Direction::Unset);
-    //m_frightenedPixmap = m_thingsPixmap.copy()
+    m_frightenedPixmap = m_thingsPixmap.copy(Resources::FRIGHTENED_GHOST.x(), Resources::FRIGHTENED_GHOST.y(), Resources::THINGS_TILE_SIZE*Resources::FRIGHTENED_GHOST_COUNT_ANIM_FRAMES, Resources::THINGS_TILE_SIZE);
 }
 
 void Ghost::setDestination(int x, int y)

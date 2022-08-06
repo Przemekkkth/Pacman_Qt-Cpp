@@ -25,6 +25,7 @@ GameScene::GameScene(QObject *parent)
 
     connect(&m_timer, &QTimer::timeout, this, &GameScene::loop);
     connect(m_pacman, &Pacman::deadAnimOver, this, &GameScene::restart);
+    connect(&m_labyrinthObj, &Labyrinth::bigDotIsEaten, this, &GameScene::weakAllGhosts);
     m_timer.start(int(1000.0f/Resources::FPS));
     m_elapsedTimer.start();
 }
@@ -80,6 +81,11 @@ void GameScene::restart()
 //    if (clyde->isOutOfCage()) clyde->teleport(13, 14);
     m_pacman->teleport(13, 26);
     m_pacman->setDead(false);
+}
+
+void GameScene::weakAllGhosts()
+{
+    m_blinky->startWeakMode();
 }
 
 void GameScene::loadPixmap()

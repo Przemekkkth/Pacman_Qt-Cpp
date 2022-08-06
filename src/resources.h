@@ -63,7 +63,7 @@ public:
     constexpr static const QPoint CLYDE_RIGHT = QPoint(0, 120);
 
     constexpr static const unsigned int FRIGHTENED_GHOST_COUNT_ANIM_FRAMES = 2;
-    constexpr static const QPoint FRIGHTENED_GHOST = QPoint(0, 120);
+    constexpr static const QPoint FRIGHTENED_GHOST = QPoint(240, 30);
 
     constexpr static const unsigned int DEAD_PACMAN_COUNT_ANIM_FRAMES = 12;
     constexpr static const QPoint DEAD_PACMAN = QPoint(0, 150);
