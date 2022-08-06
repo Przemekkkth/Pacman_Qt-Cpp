@@ -4,6 +4,7 @@
 #include <QGraphicsScene>
 #include "labyrinth.h"
 #include "pacman.h"
+#include "blinky.h"
 #include <QPixmap>
 #include <QTimer>
 #include <QElapsedTimer>
@@ -22,17 +23,23 @@ private:
     void loadPixmap();
     void initLabyrinth();
     void initPackman();
+    void initGhosts();
     void renderLabyrinth();
     void renderPacman();
+    void renderGhosts();
     void saveScene();
     bool pacmanCanMove();
     void teleportTunnels(Entity* entity);
+    void handleGhostMovement(Ghost* ghost);
+    float calculateDistance(Ghost* ghost, int addX, int addY);
+    bool ghostCanMove(Ghost* ghost);
 
     QPixmap m_labyrinthPixmap;
     QPixmap m_labyrinthPixmaps[32];
     QGraphicsPixmapItem* m_labyrinthPixmapItems[Labyrinth::LABYRINTH_WIDTH][Labyrinth::LABYRINTH_HEIGHT];
     Labyrinth m_labyrinthObj;
     Pacman* m_pacman;
+    Blinky* m_blinky;
     // QGraphicsScene interface
     int currentFrame;
     QTimer m_timer;

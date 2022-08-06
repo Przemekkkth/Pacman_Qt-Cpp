@@ -29,6 +29,9 @@ public:
 
     void setFrightened(bool f);
     bool isFrightened();
+
+    bool isAnimated() const;
+    void setAnimated(bool val);
 protected:
     int m_destinationTileX;
     int m_destinationTileY;
@@ -42,6 +45,8 @@ protected:
     int m_frightened;
 
     QPixmap m_frightenedPixmap;
+
+    bool m_isAnimated;
 };
 
 #endif // GHOST_H

@@ -17,8 +17,11 @@ GameScene::GameScene(QObject *parent)
     setBackgroundBrush(QBrush(Resources::BG_COLOR));
     initLabyrinth();
     initPackman();
+    initGhosts();
     renderLabyrinth();
+    renderGhosts();
     renderPacman();
+
 
     connect(&m_timer, &QTimer::timeout, this, &GameScene::loop);
     m_timer.start(int(1000.0f/Resources::FPS));
@@ -51,9 +54,19 @@ void GameScene::loop()
             m_pacman->stop();
         }
 
-        m_labyrinthObj.removeDot(m_pacman, nullptr, nullptr, nullptr, nullptr);
+        m_labyrinthObj.removeDot(m_pacman, m_blinky, nullptr, nullptr, nullptr);
+
+        if (!m_pacman->getDirections().empty())
+        {
+            if(!m_blinky->isScattering())
+                m_blinky->setDestination(m_pacman->getTileX(), m_pacman->getTileY());
+        }
         renderLabyrinth();
         teleportTunnels(m_pacman);
+
+        handleGhostMovement(m_blinky);
+
+        m_blinky->setPos(m_blinky->getScreenPosX(), m_blinky->getScreenPosY());
     }
 }
 
@@ -123,6 +136,14 @@ void GameScene::initPackman()
     m_pacman->setPos(m_pacman->getScreenPosX(), m_pacman->getScreenPosY());
 }
 
+void GameScene::initGhosts()
+{
+    m_blinky = new Blinky();
+    m_blinky->teleport(13, 14);
+    m_blinky->setPos(m_blinky->getScreenPosX(), m_blinky->getScreenPosY());
+    m_blinky->setAnimated(true);
+}
+
 void GameScene::renderLabyrinth()
 {
     for (int i = 0; i < int(Labyrinth::LABYRINTH_WIDTH); i++)
@@ -137,6 +158,11 @@ void GameScene::renderLabyrinth()
 void GameScene::renderPacman()
 {
     addItem(m_pacman);
+}
+
+void GameScene::renderGhosts()
+{
+    addItem(m_blinky);
 }
 
 void GameScene::saveScene()
@@ -187,6 +213,77 @@ void GameScene::teleportTunnels(Entity* entity)
         entity->teleport(1, 17);
 }
 
+void GameScene::handleGhostMovement(Ghost* ghost)
+{
+    if (ghost->isScattering())
+    {
+        if (ghost->getTileX() == ghost->getDestX() && ghost->getTileY() == ghost->getDestY())
+        {
+            ghost->setScattering(false);
+        }
+    }
+
+    if (m_labyrinthObj.isIntersection(ghost->getTileX(), ghost->getTileY()))
+    {
+        if (ghost->shouldTakeDecision())
+        {
+            float dRight = calculateDistance(ghost, 1, 0);
+            float dLeft = calculateDistance(ghost, -1, 0);
+            float dUp = calculateDistance(ghost, 0, -1);
+            float dDown = calculateDistance(ghost, 0, 1);
+
+            if (dRight < dLeft && dRight < dUp && dRight < dDown)
+                ghost->setDirection(Resources::Direction::Right);
+            else if (dLeft < dRight && dLeft < dUp && dLeft < dDown)
+                ghost->setDirection(Resources::Direction::Left);
+            else if (dUp < dLeft && dUp < dRight && dUp < dDown)
+                ghost->setDirection(Resources::Direction::Up);
+            else if (dDown < dLeft && dDown < dUp && dDown < dRight)
+                ghost->setDirection(Resources::Direction::Down);
+        }
+        ghost->setTakeDecision(false);
+    }
+    else
+    {
+        ghost->setTakeDecision(true);
+    }
+    if (ghostCanMove(ghost) && ghost->isOutOfCage())
+        ghost->move();
+    else
+        ghost->setTakeDecision(true);
+}
+
+float GameScene::calculateDistance(Ghost *ghost, int addX, int addY)
+{
+    float distance = 1000000.0f;
+    if (!m_labyrinthObj.tileBlocksEntity(ghost->getTileX() + addX, ghost->getTileY() + addY))
+    {
+        //
+        distance = (float) sqrt(pow((ghost->getDestX() - (ghost->getTileX() + addX)), 2) + pow((ghost->getDestY() - (ghost->getTileY() + addY)), 2));
+    }
+    return distance;
+}
+
+bool GameScene::ghostCanMove(Ghost *ghost)
+{
+    switch (ghost->getDirection())
+    {
+    case Resources::Direction::Up:
+        return !m_labyrinthObj.tileBlocksEntity(ghost->getTileX(), ghost->getTileY() - 1);
+        break;
+    case Resources::Direction::Down:
+        return !m_labyrinthObj.tileBlocksEntity(ghost->getTileX(), ghost->getTileY() + 1);
+        break;
+    case Resources::Direction::Left:
+        return !m_labyrinthObj.tileBlocksEntity(ghost->getTileX() - 1, ghost->getTileY());
+        break;
+    case Resources::Direction::Right:
+        return !m_labyrinthObj.tileBlocksEntity(ghost->getTileX() + 1, ghost->getTileY());
+        break;
+    default:
+        return false;
+    }
+}
 
 void GameScene::keyPressEvent(QKeyEvent *event)
 {

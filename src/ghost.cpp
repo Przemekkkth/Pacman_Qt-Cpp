@@ -98,3 +98,13 @@ bool Ghost::isFrightened()
     if (m_frightened > 0) m_frightened--;
     return m_frightened > 0;
 }
+
+bool Ghost::isAnimated() const
+{
+    return m_isAnimated;
+}
+
+void Ghost::setAnimated(bool val)
+{
+    m_isAnimated = val;
+}
