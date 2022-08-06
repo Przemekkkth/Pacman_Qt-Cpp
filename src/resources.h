@@ -39,34 +39,34 @@ public:
     constexpr static const QPoint PACMAN_RIGHT = QPoint(270, 0);
 
     constexpr static const unsigned int BLINKY_COUNT_ANIM_FRAMES = 2;
-    constexpr static const QPoint BLINKY_UP = QPoint(0, 15);
-    constexpr static const QPoint BLINKY_DOWN = QPoint(30, 15);
-    constexpr static const QPoint BLINKY_LEFT = QPoint(60, 15);
-    constexpr static const QPoint BLINKY_RIGHT = QPoint(90, 15);
+    constexpr static const QPoint BLINKY_UP = QPoint(0, 30);
+    constexpr static const QPoint BLINKY_DOWN = QPoint(60, 30);
+    constexpr static const QPoint BLINKY_LEFT = QPoint(120, 30);
+    constexpr static const QPoint BLINKY_RIGHT = QPoint(180, 30);
 
     constexpr static const unsigned int PINKY_COUNT_ANIM_FRAMES = 2;
-    constexpr static const QPoint PINKY_UP = QPoint(0, 30);
-    constexpr static const QPoint PINKY_DOWN = QPoint(30, 30);
-    constexpr static const QPoint PINKY_LEFT = QPoint(60, 30);
-    constexpr static const QPoint PINKY_RIGHT = QPoint(90, 30);
+    constexpr static const QPoint PINKY_UP = QPoint(0, 60);
+    constexpr static const QPoint PINKY_DOWN = QPoint(60, 60);
+    constexpr static const QPoint PINKY_LEFT = QPoint(120, 60);
+    constexpr static const QPoint PINKY_RIGHT = QPoint(180, 60);
 
     constexpr static const unsigned int INKY_COUNT_ANIM_FRAMES = 2;
-    constexpr static const QPoint INKY_UP = QPoint(0, 45);
-    constexpr static const QPoint INKY_DOWN = QPoint(30, 45);
-    constexpr static const QPoint INKY_LEFT = QPoint(60, 45);
-    constexpr static const QPoint INKY_RIGHT = QPoint(90, 45);
+    constexpr static const QPoint INKY_UP = QPoint(0, 90);
+    constexpr static const QPoint INKY_DOWN = QPoint(60, 90);
+    constexpr static const QPoint INKY_LEFT = QPoint(120, 90);
+    constexpr static const QPoint INKY_RIGHT = QPoint(180, 90);
 
     constexpr static const unsigned int CLYDE_COUNT_ANIM_FRAMES = 2;
-    constexpr static const QPoint CLYDE_UP = QPoint(0, 60);
-    constexpr static const QPoint CLYDE_DOWN = QPoint(30, 60);
-    constexpr static const QPoint CLYDE_LEFT = QPoint(60, 60);
-    constexpr static const QPoint CLYDE_RIGHT = QPoint(0, 60);
+    constexpr static const QPoint CLYDE_UP = QPoint(0, 120);
+    constexpr static const QPoint CLYDE_DOWN = QPoint(60, 120);
+    constexpr static const QPoint CLYDE_LEFT = QPoint(120, 120);
+    constexpr static const QPoint CLYDE_RIGHT = QPoint(0, 120);
 
     constexpr static const unsigned int FRIGHTENED_GHOST_COUNT_ANIM_FRAMES = 2;
-    constexpr static const QPoint FRIGHTENED_GHOST = QPoint(0, 60);
+    constexpr static const QPoint FRIGHTENED_GHOST = QPoint(0, 120);
 
     constexpr static const unsigned int DEAD_PACMAN_COUNT_ANIM_FRAMES = 12;
-    constexpr static const QPoint DEAD_PACMAN = QPoint(0, 75);
+    constexpr static const QPoint DEAD_PACMAN = QPoint(0, 150);
 
     constexpr static int FPS = 60;
 };

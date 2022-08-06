@@ -2,20 +2,10 @@
 #define GHOST_H
 #include "entity.h"
 #include "resources.h"
+#include <QPixmap>
 
 class Ghost : public Entity
 {
-private:
-    int m_destinationTileX;
-    int m_destinationTileY;
-    Resources::Direction m_moving;
-
-    bool m_scattering;
-    bool m_outOfCage;
-
-    bool m_decision;
-
-    int m_frightened;
 public:
     Ghost(int tilePosX, int tilePosY, int destinationX, int destinationY);
 
@@ -39,6 +29,19 @@ public:
 
     void setFrightened(bool f);
     bool isFrightened();
+protected:
+    int m_destinationTileX;
+    int m_destinationTileY;
+    Resources::Direction m_moving;
+
+    bool m_scattering;
+    bool m_outOfCage;
+
+    bool m_decision;
+
+    int m_frightened;
+
+    QPixmap m_frightenedPixmap;
 };
 
 #endif // GHOST_H

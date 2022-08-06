@@ -6,6 +6,7 @@ Ghost::Ghost(int tilePosX, int tilePosY, int destinationX, int destinationY)
 {
     setDestination(destinationX, destinationY);
     setDirection(Resources::Direction::Unset);
+    //m_frightenedPixmap = m_thingsPixmap.copy()
 }
 
 void Ghost::setDestination(int x, int y)
