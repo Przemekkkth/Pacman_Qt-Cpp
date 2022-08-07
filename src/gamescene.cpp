@@ -80,6 +80,7 @@ void GameScene::restart()
 //    if (inky->isOutOfCage()) inky->teleport(13, 14);
 //    if (clyde->isOutOfCage()) clyde->teleport(13, 14);
     m_pacman->teleport(13, 26);
+    m_pacman->clearQueueDirection();
     m_pacman->setDead(false);
 }
 
@@ -336,7 +337,8 @@ void GameScene::handleGhostFrightening(Blinky *ghost)
         else
         {
             m_pacman->setDead(true);
-            m_blinky->teleport(-2, -2);
+//            m_pacman->clearQueueDirection();
+//            m_blinky->teleport(-2, -2);
 //			pinky->teleport(-2, -2);
 //			inky->teleport(-2, -2);
 //			clyde->teleport(-2, -2);

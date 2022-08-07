@@ -63,6 +63,12 @@ void Pacman::loadPixmap()
     m_deadPixmap  = m_thingsPixmap.copy(Resources::DEAD_PACMAN.x(), Resources::DEAD_PACMAN.y(), Resources::THINGS_TILE_SIZE*Resources::DEAD_PACMAN_COUNT_ANIM_FRAMES, Resources::THINGS_TILE_SIZE);
 }
 
+void Pacman::clearQueueDirection()
+{
+    std::queue<Resources::Direction> clear;
+    std::swap(m_directions, clear);
+}
+
 void Pacman::queueDirection(Resources::Direction dir)
 {
     if (!m_directions.empty())
@@ -163,19 +169,23 @@ void Pacman::keyPressEvent(QKeyEvent *event)
     {
         return;
     }
-    switch (event->key()) {
-    case Qt::Key_Up:
-        queueDirection(Resources::Direction::Up);
-        break;
-    case Qt::Key_Right:
-        queueDirection(Resources::Direction::Right);
-        break;
-    case Qt::Key_Down:
-        queueDirection(Resources::Direction::Down);
-        break;
-    case Qt::Key_Left:
-        queueDirection(Resources::Direction::Left);
-        break;
+    if(!isDead())
+    {
+        switch (event->key()) {
+        case Qt::Key_Up:
+            queueDirection(Resources::Direction::Up);
+            break;
+        case Qt::Key_Right:
+            queueDirection(Resources::Direction::Right);
+            break;
+        case Qt::Key_Down:
+            queueDirection(Resources::Direction::Down);
+            break;
+        case Qt::Key_Left:
+            queueDirection(Resources::Direction::Left);
+            break;
+        }
     }
+
     QGraphicsPixmapItem::keyPressEvent(event);
 }

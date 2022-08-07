@@ -32,7 +32,7 @@ private:
     constexpr static float SPEED = 0.8f;
     constexpr static int ANIM_SPEED = 125;
 public:
-
+    void clearQueueDirection();
     void queueDirection(Resources::Direction dir);
     void move();
     std::queue<Resources::Direction> getDirections();
