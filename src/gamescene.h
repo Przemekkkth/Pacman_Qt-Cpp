@@ -36,6 +36,8 @@ private:
     float calculateDistance(Ghost* ghost, int addX, int addY);
     bool ghostCanMove(Ghost* ghost);
     void handleGhostFrightening(Ghost* ghost);
+    void handleGhostFrightening(Blinky* ghost);
+
 
     QPixmap m_labyrinthPixmap;
     QPixmap m_labyrinthPixmaps[32];

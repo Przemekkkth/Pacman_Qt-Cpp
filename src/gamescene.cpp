@@ -323,6 +323,27 @@ void GameScene::handleGhostFrightening(Ghost *ghost)
     }
 }
 
+void GameScene::handleGhostFrightening(Blinky *ghost)
+{
+    if (m_pacman->getTileX() == ghost->getTileX() && m_pacman->getTileY() == ghost->getTileY())
+    {
+        if (ghost->isWeak())
+        {
+            ghost->teleport(13, 14);
+            ghost->setFrightened(false);
+            ghost->stopWeakMode();
+        }
+        else
+        {
+            m_pacman->setDead(true);
+            m_blinky->teleport(-2, -2);
+//			pinky->teleport(-2, -2);
+//			inky->teleport(-2, -2);
+//			clyde->teleport(-2, -2);
+        }
+    }
+}
+
 void GameScene::keyPressEvent(QKeyEvent *event)
 {
     switch (event->key()) {

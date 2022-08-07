@@ -16,6 +16,7 @@ public:
 
     void startWeakMode();
     void stopWeakMode();
+    bool isWeak();
 signals:
 
 private slots:
@@ -23,7 +24,6 @@ private slots:
     void setWeak(qreal val);
 private:
     qreal weak() const;
-    bool isWeak();
 
     QTimer m_timer;
     int m_currentIndex;
