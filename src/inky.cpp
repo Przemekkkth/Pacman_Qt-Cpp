@@ -12,6 +12,8 @@ void Inky::loadPixmap()
 Inky::Inky()
     : Ghost(11, 17, 26, 32), m_currentIndex(0), m_weak(0)
 {
+    m_speed = 0.75f;
+
     setPixmap(m_thingsPixmap.copy(Resources::INKY_DOWN.x(),Resources::INKY_DOWN.y(), Resources::THINGS_TILE_SIZE, Resources::THINGS_TILE_SIZE));
     loadPixmap();
 

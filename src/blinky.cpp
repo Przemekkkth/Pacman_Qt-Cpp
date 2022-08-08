@@ -11,6 +11,8 @@ void Blinky::loadPixmap()
 Blinky::Blinky()
     : Ghost(13, 14, 3, 4), m_currentIndex(0), m_weak(0)
 {
+    m_speed = 0.85f;
+
     setPixmap(m_thingsPixmap.copy(Resources::BLINKY_DOWN.x(),Resources::BLINKY_DOWN.y(), Resources::THINGS_TILE_SIZE, Resources::THINGS_TILE_SIZE));
     loadPixmap();
 

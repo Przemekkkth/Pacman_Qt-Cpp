@@ -49,6 +49,8 @@ protected:
     bool m_isAnimated;
 
     const int WEAK_MODE_SPEED;
+
+    float m_speed;
 };
 
 #endif // GHOST_H

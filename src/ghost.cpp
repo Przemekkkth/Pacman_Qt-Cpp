@@ -40,16 +40,16 @@ void Ghost::move()
     switch (m_moving)
     {
     case Resources::Direction::Up:
-        Entity::move(0, -0.2f);
+        Entity::move(0, -m_speed);
         break;
     case Resources::Direction::Down:
-        Entity::move(0, 0.2f);
+        Entity::move(0, m_speed);
         break;
     case Resources::Direction::Left:
-        Entity::move(-0.2f, 0);
+        Entity::move(-m_speed, 0);
         break;
     case Resources::Direction::Right:
-        Entity::move(0.2f, 0);
+        Entity::move(m_speed, 0);
         break;
     }
 }

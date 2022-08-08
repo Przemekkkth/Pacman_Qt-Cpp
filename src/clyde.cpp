@@ -11,6 +11,8 @@ void Clyde::loadPixmap()
 Clyde::Clyde()
     : Ghost(15, 17, 1, 32), m_currentIndex(0), m_weak(0)
 {
+    m_speed = 0.8f;
+
     setPixmap(m_thingsPixmap.copy(Resources::CLYDE_DOWN.x(),Resources::CLYDE_DOWN.y(), Resources::THINGS_TILE_SIZE, Resources::THINGS_TILE_SIZE));
     loadPixmap();
 
