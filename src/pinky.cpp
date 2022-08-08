@@ -9,7 +9,7 @@ void Pinky::loadPixmap()
 }
 
 Pinky::Pinky()
-    : Ghost(13, 17, 26, 32), m_weak(0)
+    : Ghost(13, 17, 26, 32), m_currentIndex(0), m_weak(0)
 {
     setPixmap(m_thingsPixmap.copy(Resources::PINKY_DOWN.x(),Resources::PINKY_DOWN.y(), Resources::THINGS_TILE_SIZE, Resources::THINGS_TILE_SIZE));
     loadPixmap();
