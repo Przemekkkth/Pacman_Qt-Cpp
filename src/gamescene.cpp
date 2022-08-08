@@ -42,12 +42,9 @@ void GameScene::loop()
         if (pacmanCanMove() && !m_pacman->isDead())
         {
             m_pacman->move();
-            m_pacman->setPos(m_pacman->getScreenPosX(), m_pacman->getScreenPosY());
-            qDebug() << "Move" << m_pacman->getScreenPosX() << " : " << m_pacman->getScreenPosY();
-        }
+            m_pacman->setPos(m_pacman->getScreenPosX(), m_pacman->getScreenPosY());        }
         else
         {
-            //qDebug() << "stop";
             m_pacman->stop();
         }
 
@@ -101,15 +98,12 @@ void GameScene::loop()
         {
             m_inky->teleport(13, 14);
             m_inky->setAnimated(true);
-            //m_inky->setPosition(13, 14);
         }
         if(m_pacman->getDotsEaten() == 25)
         {
             m_pinky->teleport(13, 14);
             m_pinky->setAnimated(true);
-            //m_pinky->setPos(m_pinky->getScreenPosX(), m_pinky->getScreenPosY());
         }
-
 
 
         handleGhostFrightening(m_blinky);
@@ -264,19 +258,15 @@ bool GameScene::pacmanCanMove()
         switch (m_pacman->getDirections().front())
         {
         case Resources::Direction::Up:
-            qDebug() << "UP " << m_labyrinthObj.tiles(m_pacman->getTileX(), m_pacman->getTileY() - 1);
             return !m_labyrinthObj.tileBlocksEntity(m_pacman->getTileX(), m_pacman->getTileY() - 1);
             break;
         case Resources::Direction::Down:
-            qDebug() << "Down " << m_labyrinthObj.tiles(m_pacman->getTileX(), m_pacman->getTileY() + 1);
             return !m_labyrinthObj.tileBlocksEntity(m_pacman->getTileX(), m_pacman->getTileY() + 1);
             break;
         case Resources::Direction::Left:
-            qDebug() << "Left " << m_pacman->getTileX() - 1 << " " << m_pacman->getTileY();
             return !m_labyrinthObj.tileBlocksEntity(m_pacman->getTileX() - 1, m_pacman->getTileY());
             break;
         case Resources::Direction::Right:
-            qDebug() << "Right " << m_labyrinthObj.tileBlocksEntity(m_pacman->getTileX() + 1, m_pacman->getTileY());
             return !m_labyrinthObj.tileBlocksEntity(m_pacman->getTileX() + 1, m_pacman->getTileY());
             break;
         }

@@ -1,6 +1,7 @@
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 SOURCES += \
+    src/clyde.cpp \
     src/blinky.cpp \
     src/entity.cpp \
     src/gamescene.cpp \
@@ -14,6 +15,7 @@ SOURCES += \
     src/view.cpp
 
 HEADERS += \
+    src/clyde.h \
     src/blinky.h \
     src/entity.h \
     src/gamescene.h \

@@ -14,7 +14,6 @@ public:
 
     void move(float x, float y);
     void teleport(int x, int y);
-    void setPosition(int x, int y);
 protected:
     float m_screenPosX;
     float m_screenPosY;
