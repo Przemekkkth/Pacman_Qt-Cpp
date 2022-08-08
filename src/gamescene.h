@@ -5,6 +5,7 @@
 #include "labyrinth.h"
 #include "pacman.h"
 #include "blinky.h"
+#include "pinky.h"
 #include "inky.h"
 #include <QPixmap>
 #include <QTimer>
@@ -38,7 +39,7 @@ private:
     bool ghostCanMove(Ghost* ghost);
     void handleGhostFrightening(Blinky* ghost);
     void handleGhostFrightening(Inky* ghost);
-
+    void handleGhostFrightening(Pinky* ghost);
 
     QPixmap m_labyrinthPixmap;
     QPixmap m_labyrinthPixmaps[32];
@@ -47,6 +48,7 @@ private:
     Pacman* m_pacman;
     Blinky* m_blinky;
     Inky* m_inky;
+    Pinky* m_pinky;
     // QGraphicsScene interface
     int currentFrame;
     QTimer m_timer;
