@@ -162,6 +162,11 @@ void GameScene::restart()
     m_pacman->teleport(13, 26);
     m_pacman->clearQueueDirection();
     m_pacman->setDead(false);
+    m_lives--;
+    if(m_lives < 0)
+    {
+        m_lives = 0;
+    }
 }
 
 void GameScene::weakAllGhosts()
@@ -183,7 +188,17 @@ void GameScene::loadPixmap()
         qFatal("Labyrinth is loaded SUCCESSFULLY");
     }
 
+    QPixmap thingsPixmap;
+    if( thingsPixmap.load(Resources::PATH_TO_THINGS_PIXMAP) )
+    {
+        qDebug() << "Things is loaded SUCCESSFULLY";
+        m_lifePacmanPixmap = thingsPixmap.copy(Resources::LIFE_PACKMAN.x(), Resources::LIFE_PACKMAN.y(), Resources::THINGS_TILE_SIZE, Resources::THINGS_TILE_SIZE);
 
+    }
+    else
+    {
+        qFatal("Things is loaded SUCCESSFULLY");
+    }
 }
 
 void GameScene::initLabyrinth()
@@ -268,6 +283,14 @@ void GameScene::initGUI()
     m_scoreTextItem->setFont(m_basicFont);
     m_scoreTextItem->setText("Score: " + QString::number(m_score).right(5));
 
+    m_lives = 6;
+    for(int i = 0; i < m_lives; ++i)
+    {
+        QGraphicsPixmapItem* pixmapItem = new QGraphicsPixmapItem();
+        pixmapItem->setPixmap(m_lifePacmanPixmap);
+        pixmapItem->setPos(i * Resources::THINGS_TILE_SIZE, 18.5 * Resources::THINGS_TILE_SIZE);
+        m_livesPixmapItem.append(pixmapItem);
+    }
 }
 
 void GameScene::renderLabyrinth()
@@ -297,6 +320,11 @@ void GameScene::renderGhosts()
 void GameScene::renderGUI()
 {
     addItem(m_scoreTextItem);
+
+    for(int i = 0; i < m_lives; ++i)
+    {
+        addItem(m_livesPixmapItem.at(i));
+    }
 }
 
 void GameScene::saveScene()
@@ -516,6 +544,15 @@ void GameScene::addPoints(int n)
 void GameScene::updateGUI()
 {
     m_scoreTextItem->setText("Score: " + QString::number(m_score).right(5));
+
+    for(int i = 0; i < 6; ++i)
+    {
+        m_livesPixmapItem[i]->hide();
+    }
+    for(int i = 0; i < m_lives; ++i)
+    {
+        m_livesPixmapItem[i]->show();
+    }
 }
 
 void GameScene::keyPressEvent(QKeyEvent *event)

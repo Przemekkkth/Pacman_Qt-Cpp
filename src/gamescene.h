@@ -12,6 +12,7 @@
 #include <QTimer>
 #include <QElapsedTimer>
 #include <QGraphicsSimpleTextItem>
+#include <QList>
 
 class QGraphicsPixmapItem;
 class GameScene : public QGraphicsScene
@@ -70,7 +71,9 @@ private:
     //GUI
     QFont m_basicFont;
     QGraphicsSimpleTextItem *m_scoreTextItem;
+    QPixmap m_lifePacmanPixmap;
     int m_lives, m_score;
+    QList<QGraphicsPixmapItem*> m_livesPixmapItem;
 protected:
     virtual void keyPressEvent(QKeyEvent *event) override;
 };
