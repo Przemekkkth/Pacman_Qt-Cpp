@@ -11,6 +11,7 @@
 #include <QPixmap>
 #include <QTimer>
 #include <QElapsedTimer>
+#include <QGraphicsSimpleTextItem>
 
 class QGraphicsPixmapItem;
 class GameScene : public QGraphicsScene
@@ -29,20 +30,28 @@ private:
     void initLabyrinth();
     void initPackman();
     void initGhosts();
+    void initGUI();
+
     void renderLabyrinth();
     void renderPacman();
     void renderGhosts();
+    void renderGUI();
     void saveScene();
+
     bool pacmanCanMove();
+    bool ghostCanMove(Ghost* ghost);
     void teleportTunnels(Entity* entity);
     void handleGhostMovement(Ghost* ghost);
     float calculateDistance(Ghost* ghost, int addX, int addY);
-    bool ghostCanMove(Ghost* ghost);
+
     void handleGhostFrightening(Blinky* ghost);
     void handleGhostFrightening(Inky* ghost);
     void handleGhostFrightening(Pinky* ghost);
     void handleGhostFrightening(Clyde* ghost);
 
+    void addPoints(int n);
+    void updateGUI();
+    //Visual Game ELEMENTS
     QPixmap m_labyrinthPixmap;
     QPixmap m_labyrinthPixmaps[32];
     QGraphicsPixmapItem* m_labyrinthPixmapItems[Labyrinth::LABYRINTH_WIDTH][Labyrinth::LABYRINTH_HEIGHT];
@@ -52,12 +61,16 @@ private:
     Inky* m_inky;
     Pinky* m_pinky;
     Clyde* m_clyde;
-    // QGraphicsScene interface
+    //TO SERVER FRAME
     int currentFrame;
     QTimer m_timer;
     QElapsedTimer m_elapsedTimer;
     float m_deltaTime, m_loopTime;
     const float m_loopSpeed;
+    //GUI
+    QFont m_basicFont;
+    QGraphicsSimpleTextItem *m_scoreTextItem;
+    int m_lives, m_score;
 protected:
     virtual void keyPressEvent(QKeyEvent *event) override;
 };

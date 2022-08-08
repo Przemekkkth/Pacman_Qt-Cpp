@@ -2,5 +2,6 @@
     <qresource prefix="/">
         <file>res/labyrinth.png</file>
         <file>res/things.png</file>
+        <file>res/font/arcadepi.ttf</file>
     </qresource>
 </RCC>

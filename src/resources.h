@@ -21,6 +21,7 @@ public:
 
     constexpr static const QSize RESOLUTION = QSize(448, 596);
     constexpr static const QColor BG_COLOR = QColor(0, 0, 0);
+    constexpr static const QColor FONT_COLOR = QColor(255, 255, 255);
 
     static void loadLabyrinth();
 
@@ -30,7 +31,7 @@ public:
     static const QString PATH_TO_THINGS_PIXMAP;
     constexpr static const unsigned int THINGS_TILE_SIZE = 30;
 
-
+    static const QString PATH_TO_FONT;
 
     constexpr static const unsigned int PACMAN_COUNT_ANIM_FRAMES = 3;
     constexpr static const QPoint PACMAN_UP = QPoint(0, 0);

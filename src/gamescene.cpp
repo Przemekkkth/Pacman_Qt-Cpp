@@ -6,6 +6,7 @@
 #include <QKeyEvent>
 #include <QPainter>
 #include <QDir>
+#include <QFontDatabase>
 
 GameScene::GameScene(QObject *parent)
     : QGraphicsScene{parent},
@@ -16,12 +17,14 @@ GameScene::GameScene(QObject *parent)
     setSceneRect(0,0, Resources::RESOLUTION.width(), Resources::RESOLUTION.height());
     setBackgroundBrush(QBrush(Resources::BG_COLOR));
     initLabyrinth();
+    initGUI();
     initPackman();
     initGhosts();
+
     renderLabyrinth();
     renderGhosts();
     renderPacman();
-
+    renderGUI();
 
     connect(&m_timer, &QTimer::timeout, this, &GameScene::loop);
     connect(m_pacman, &Pacman::deadAnimOver, this, &GameScene::restart);
@@ -53,7 +56,7 @@ void GameScene::loop()
             m_pacman->stop();
         }
 
-        m_labyrinthObj.removeDot(m_pacman, m_blinky, m_inky, m_pinky, m_clyde);
+        m_labyrinthObj.removeDot(m_pacman, m_blinky, m_inky, m_pinky, m_clyde, m_score);
 
         if (!m_pacman->getDirections().empty())
         {
@@ -133,6 +136,8 @@ void GameScene::loop()
         m_inky->setPos(m_inky->getScreenPosX(), m_inky->getScreenPosY());
         m_pinky->setPos(m_pinky->getScreenPosX(), m_pinky->getScreenPosY());
         m_clyde->setPos(m_clyde->getScreenPosX(), m_clyde->getScreenPosY());
+
+        updateGUI();
     }
 }
 
@@ -251,6 +256,20 @@ void GameScene::initGhosts()
 
 }
 
+void GameScene::initGUI()
+{
+    int id = QFontDatabase::addApplicationFont(Resources::PATH_TO_FONT);
+    m_basicFont = QFont(QFontDatabase::applicationFontFamilies(id).at(0), 22 /*22pt ~ 30px */, 0);
+
+    m_scoreTextItem = new QGraphicsSimpleTextItem();
+    m_scoreTextItem->setBrush(QBrush(Resources::FONT_COLOR));
+    m_scoreTextItem->setPen(QPen(Resources::FONT_COLOR));
+    m_scoreTextItem->setPos(12*Resources::LABYRINTH_TILE_SIZE, 1*Resources::LABYRINTH_TILE_SIZE);
+    m_scoreTextItem->setFont(m_basicFont);
+    m_scoreTextItem->setText("Score: " + QString::number(m_score).right(5));
+
+}
+
 void GameScene::renderLabyrinth()
 {
     for (int i = 0; i < int(Labyrinth::LABYRINTH_WIDTH); i++)
@@ -273,6 +292,11 @@ void GameScene::renderGhosts()
     addItem(m_inky);
     addItem(m_pinky);
     addItem(m_clyde);
+}
+
+void GameScene::renderGUI()
+{
+    addItem(m_scoreTextItem);
 }
 
 void GameScene::saveScene()
@@ -446,6 +470,7 @@ void GameScene::handleGhostFrightening(Pinky* ghost)
             ghost->teleport(13, 14);
             ghost->setFrightened(false);
             ghost->stopWeakMode();
+            addPoints(100);
         }
         else
         {
@@ -481,6 +506,16 @@ void GameScene::handleGhostFrightening(Clyde* ghost)
             m_clyde->teleport(-2, -2);
         }
     }
+}
+
+void GameScene::addPoints(int n)
+{
+    m_score += n;
+}
+
+void GameScene::updateGUI()
+{
+    m_scoreTextItem->setText("Score: " + QString::number(m_score).right(5));
 }
 
 void GameScene::keyPressEvent(QKeyEvent *event)

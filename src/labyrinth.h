@@ -17,7 +17,7 @@ public:
     uint tiles(int x, int y) const;
     bool tileBlocksEntity(int x, int y);
     bool isIntersection(int x, int y);
-    void removeDot(Pacman* pacman, Ghost* ghost1, Ghost* ghost2, Ghost* ghost3, Ghost* ghost4);
+    void removeDot(Pacman* pacman, Ghost* ghost1, Ghost* ghost2, Ghost* ghost3, Ghost* ghost4, int& score);
 signals:
     void bigDotIsEaten();
 private:
