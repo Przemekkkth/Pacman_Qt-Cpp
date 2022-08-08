@@ -53,7 +53,7 @@ void GameScene::loop()
             m_pacman->stop();
         }
 
-        m_labyrinthObj.removeDot(m_pacman, m_blinky, m_inky, m_pinky, nullptr);
+        m_labyrinthObj.removeDot(m_pacman, m_blinky, m_inky, m_pinky, m_clyde);
 
         if (!m_pacman->getDirections().empty())
         {
@@ -83,16 +83,29 @@ void GameScene::loop()
             {
                 m_inky->setDestination(m_pacman->getTileX() + (m_blinky->getTileX() - m_pacman->getTileX()), m_pacman->getTileY() + (m_blinky->getTileY() - m_pacman->getTileY()));
             }
+            if (!m_clyde->isScattering())
+            {
+                if (sqrt(pow((m_clyde->getTileX() - (m_pacman->getTileX())), 2) + pow((m_clyde->getTileY() - (m_pacman->getTileY())), 2)) < 9)
+                {
+                    m_clyde->setDestination(m_pacman->getTileX(), m_pacman->getTileY());
+                }
+                else
+                {
+                    m_clyde->setDestination(1, 32);
+                }
+            }
         }
         renderLabyrinth();
         teleportTunnels(m_pacman);
         teleportTunnels(m_blinky);
         teleportTunnels(m_inky);
         teleportTunnels(m_pinky);
+        teleportTunnels(m_clyde);
 
         handleGhostMovement(m_blinky);
         handleGhostMovement(m_inky);
         handleGhostMovement(m_pinky);
+        handleGhostMovement(m_clyde);
 
         if(m_pacman->getDotsEaten() == 10)
         {
@@ -104,24 +117,43 @@ void GameScene::loop()
             m_pinky->teleport(13, 14);
             m_pinky->setAnimated(true);
         }
+        if(m_pacman->getDotsEaten() == 75)
+        {
+            m_clyde->teleport(13, 14);
+            m_clyde->setAnimated(true);
+        }
 
 
         handleGhostFrightening(m_blinky);
         handleGhostFrightening(m_inky);
         handleGhostFrightening(m_pinky);
+        handleGhostFrightening(m_clyde);
 
         m_blinky->setPos(m_blinky->getScreenPosX(), m_blinky->getScreenPosY());
         m_inky->setPos(m_inky->getScreenPosX(), m_inky->getScreenPosY());
         m_pinky->setPos(m_pinky->getScreenPosX(), m_pinky->getScreenPosY());
+        m_clyde->setPos(m_clyde->getScreenPosX(), m_clyde->getScreenPosY());
     }
 }
 
 void GameScene::restart()
 {
-    if (m_blinky->isOutOfCage()) m_blinky->teleport(13, 14);
-    if (m_pinky->isOutOfCage()) m_pinky->teleport(15, 14);
-    if (m_inky->isOutOfCage()) m_inky->teleport(18, 14);
-//    if (clyde->isOutOfCage()) clyde->teleport(13, 14);
+    if (m_blinky->isOutOfCage())
+    {
+        m_blinky->teleport(13, 14);
+    }
+    if (m_pinky->isOutOfCage())
+    {
+        m_pinky->teleport(15, 14);
+    }
+    if (m_inky->isOutOfCage())
+    {
+        m_inky->teleport(18, 14);
+    }
+    if (m_clyde->isOutOfCage())
+    {
+        m_clyde->teleport(9, 14);
+    }
     m_pacman->teleport(13, 26);
     m_pacman->clearQueueDirection();
     m_pacman->setDead(false);
@@ -132,6 +164,7 @@ void GameScene::weakAllGhosts()
     m_blinky->startWeakMode();
     m_inky->startWeakMode();
     m_pinky->startWeakMode();
+    m_clyde->startWeakMode();
 }
 
 void GameScene::loadPixmap()
@@ -213,6 +246,9 @@ void GameScene::initGhosts()
     m_pinky = new Pinky();
     m_pinky->setPos(m_pinky->getScreenPosX(), m_pinky->getScreenPosY());
 
+    m_clyde = new Clyde();
+    m_clyde->setPos(m_clyde->getScreenPosX(), m_clyde->getScreenPosY());
+
 }
 
 void GameScene::renderLabyrinth()
@@ -236,6 +272,7 @@ void GameScene::renderGhosts()
     addItem(m_blinky);
     addItem(m_inky);
     addItem(m_pinky);
+    addItem(m_clyde);
 }
 
 void GameScene::saveScene()
@@ -419,6 +456,29 @@ void GameScene::handleGhostFrightening(Pinky* ghost)
 //			pinky->teleport(-2, -2);
 //			inky->teleport(-2, -2);
 //			clyde->teleport(-2, -2);
+        }
+    }
+}
+
+void GameScene::handleGhostFrightening(Clyde* ghost)
+{
+    if (m_pacman->getTileX() == ghost->getTileX() && m_pacman->getTileY() == ghost->getTileY())
+    {
+        if (ghost->isWeak())
+        {
+            ghost->teleport(13, 14);
+            ghost->setFrightened(false);
+            ghost->stopWeakMode();
+        }
+        else
+        {
+            m_pacman->setDead(true);
+            //m_blinky->setDirection(Resources::Direction::Unset);
+//            m_pacman->clearQueueDirection();
+//            m_pinky->teleport(-2, -2);
+//			pinky->teleport(-2, -2);
+//			inky->teleport(-2, -2);
+            m_clyde->teleport(-2, -2);
         }
     }
 }

@@ -7,6 +7,7 @@
 #include "blinky.h"
 #include "pinky.h"
 #include "inky.h"
+#include "clyde.h"
 #include <QPixmap>
 #include <QTimer>
 #include <QElapsedTimer>
@@ -40,6 +41,7 @@ private:
     void handleGhostFrightening(Blinky* ghost);
     void handleGhostFrightening(Inky* ghost);
     void handleGhostFrightening(Pinky* ghost);
+    void handleGhostFrightening(Clyde* ghost);
 
     QPixmap m_labyrinthPixmap;
     QPixmap m_labyrinthPixmaps[32];
@@ -49,6 +51,7 @@ private:
     Blinky* m_blinky;
     Inky* m_inky;
     Pinky* m_pinky;
+    Clyde* m_clyde;
     // QGraphicsScene interface
     int currentFrame;
     QTimer m_timer;
