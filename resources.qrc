@@ -3,5 +3,9 @@
         <file>res/font/arcadepi.ttf</file>
         <file>res/sprite/labyrinth.png</file>
         <file>res/sprite/things.png</file>
+        <file>res/sfx/pacman_eatfruit.wav</file>
+        <file>res/sfx/pacman_eatghost.wav</file>
+        <file>res/sfx/pacman_chomp.wav</file>
+        <file>res/sfx/pacman_death.wav</file>
     </qresource>
 </RCC>

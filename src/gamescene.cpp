@@ -61,7 +61,7 @@ void GameScene::loop()
             m_pacman->stop();
         }
 
-        m_labyrinthObj.removeDot(m_pacman, m_blinky, m_inky, m_pinky, m_clyde, m_score);
+        m_labyrinthObj.removeDot(m_pacman, m_score);
 
         if (!m_pacman->getDirections().empty())
         {
@@ -499,7 +499,6 @@ void GameScene::handleGhostFrightening(Blinky *ghost)
         if (ghost->isWeak())
         {
             ghost->teleport(13, 14);
-            ghost->setFrightened(false);
             ghost->stopWeakMode();
         }
         else
@@ -522,7 +521,6 @@ void GameScene::handleGhostFrightening(Inky* ghost)
         if (ghost->isWeak())
         {
             ghost->teleport(13, 14);
-            ghost->setFrightened(false);
             ghost->stopWeakMode();
         }
         else
@@ -545,7 +543,6 @@ void GameScene::handleGhostFrightening(Pinky* ghost)
         if (ghost->isWeak())
         {
             ghost->teleport(13, 14);
-            ghost->setFrightened(false);
             ghost->stopWeakMode();
             addPoints(100);
         }
@@ -569,7 +566,6 @@ void GameScene::handleGhostFrightening(Clyde* ghost)
         if (ghost->isWeak())
         {
             ghost->teleport(13, 14);
-            ghost->setFrightened(false);
             ghost->stopWeakMode();
         }
         else

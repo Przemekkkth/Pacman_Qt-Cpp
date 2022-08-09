@@ -85,19 +85,6 @@ void Ghost::teleport(int x, int y)
     m_outOfCage = true;
 }
 
-void Ghost::setFrightened(bool f)
-{
-    if (f)
-        m_frightened = 2000;
-    else
-        m_frightened = 0;
-}
-
-bool Ghost::isFrightened()
-{
-    if (m_frightened > 0) m_frightened--;
-    return m_frightened > 0;
-}
 
 bool Ghost::isAnimated() const
 {

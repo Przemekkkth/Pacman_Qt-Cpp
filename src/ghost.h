@@ -27,8 +27,6 @@ public:
 
     void teleport(int x, int y);
 
-    void setFrightened(bool f);
-    bool isFrightened();
 
     bool isAnimated() const;
     void setAnimated(bool val);

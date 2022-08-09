@@ -63,18 +63,21 @@ bool Labyrinth::isIntersection(int x, int y)
         || (x == 13 && y == 14) || (x == 14 && y == 15);
 }
 
-void Labyrinth::removeDot(Pacman* pacman, Ghost* ghost1, Ghost* ghost2, Ghost* ghost3, Ghost* ghost4, int &score)
+bool Labyrinth::removeDot(Pacman* pacman, int &score)
 {
     if (m_tiles[pacman->getTileX()][pacman->getTileY()] == 26)
     {
         m_tiles[pacman->getTileX()][pacman->getTileY()] = 30;
         pacman->eatDot();
         score += 5;
+        return true;
     }
     else if (m_tiles[pacman->getTileX()][pacman->getTileY()] == 27)
     {
         m_tiles[pacman->getTileX()][pacman->getTileY()] = 30;
-        score += 10;
+        score += 20;
         emit bigDotIsEaten();
+        return true;
     }
+    return false;
 }
