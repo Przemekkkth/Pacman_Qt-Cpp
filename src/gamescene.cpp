@@ -299,13 +299,15 @@ void GameScene::initGhosts()
 
     m_inky = new Inky();
     m_inky->setPos(m_inky->getScreenPosX(), m_inky->getScreenPosY());
+    m_inky->setAnimated(false);
 
     m_pinky = new Pinky();
     m_pinky->setPos(m_pinky->getScreenPosX(), m_pinky->getScreenPosY());
+    m_pinky->setAnimated(false);
 
     m_clyde = new Clyde();
     m_clyde->setPos(m_clyde->getScreenPosX(), m_clyde->getScreenPosY());
-
+    m_clyde->setAnimated(false);
 }
 
 void GameScene::initPrize()
@@ -634,7 +636,7 @@ void GameScene::keyPressEvent(QKeyEvent *event)
 {
     switch (event->key()) {
     case Qt::Key_Z:
-        saveScene();
+        //saveScene();
         break;
     }
 
