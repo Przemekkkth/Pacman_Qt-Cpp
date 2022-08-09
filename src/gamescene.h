@@ -13,6 +13,7 @@
 #include <QElapsedTimer>
 #include <QGraphicsSimpleTextItem>
 #include <QList>
+#include <QSoundEffect>
 
 class QGraphicsPixmapItem;
 class GameScene : public QGraphicsScene
@@ -28,6 +29,7 @@ private slots:
     void weakAllGhosts();
 private:
     void loadPixmap();
+    void loadSFX();
     void initLabyrinth();
     void initPackman();
     void initGhosts();
@@ -84,6 +86,8 @@ private:
     QPixmap m_strawberryPixmap, m_cherryPixmap, m_bellPixmap, m_keyPixmap;
     QList<QPixmap> m_possiblePrizesList;
     QList<QGraphicsPixmapItem*> m_prizesPixmapItem;
+    //SFX
+    QSoundEffect m_packman_chompSFX, m_packman_deathSFX, m_packman_eatfruitSFX, m_packman_eatghostSFX;
 protected:
     virtual void keyPressEvent(QKeyEvent *event) override;
 };

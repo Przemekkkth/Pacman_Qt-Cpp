@@ -4,6 +4,7 @@
 #include <QPoint>
 #include <QSize>
 #include <QColor>
+#include <QUrl>
 
 class Resources
 {
@@ -78,6 +79,11 @@ public:
     constexpr static const QPoint BELL = QPoint(240, 120);
     constexpr static const QPoint KEY = QPoint(270, 60);
     constexpr static int COUNT_OF_PRIZES = 4;
+
+    static const QUrl PACMAN_CHOMP_SFX;
+    static const QUrl PACMAN_DEATH_SFX;
+    static const QUrl PACMAN_EATFRUIT_SFX;
+    static const QUrl PACMAN_EATGHOST_SFX;
 };
 
 #endif // RESOURCES_H

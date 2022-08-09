@@ -17,6 +17,7 @@ GameScene::GameScene(QObject *parent)
 {
     srand(time(0));
     loadPixmap();
+    loadSFX();
     setSceneRect(0,0, Resources::RESOLUTION.width(), Resources::RESOLUTION.height());
     setBackgroundBrush(QBrush(Resources::BG_COLOR));
     initLabyrinth();
@@ -61,7 +62,10 @@ void GameScene::loop()
             m_pacman->stop();
         }
 
-        m_labyrinthObj.removeDot(m_pacman, m_score);
+        if(m_labyrinthObj.removeDot(m_pacman, m_score))
+        {
+            m_packman_chompSFX.play();
+        }
 
         if (!m_pacman->getDirections().empty())
         {
@@ -223,6 +227,15 @@ void GameScene::loadPixmap()
     m_possiblePrizesList.push_back(m_cherryPixmap);
     m_possiblePrizesList.push_back(m_bellPixmap);
     m_possiblePrizesList.push_back(m_keyPixmap);
+}
+
+void GameScene::loadSFX()
+{
+    m_packman_chompSFX.setSource(Resources::PACMAN_CHOMP_SFX);
+    m_packman_chompSFX.setVolume(0.5f);
+    m_packman_deathSFX.setSource(Resources::PACMAN_DEATH_SFX);
+    m_packman_eatfruitSFX.setSource(Resources::PACMAN_EATFRUIT_SFX);
+    m_packman_eatghostSFX.setSource(Resources::PACMAN_EATGHOST_SFX);
 }
 
 void GameScene::initLabyrinth()
@@ -500,16 +513,14 @@ void GameScene::handleGhostFrightening(Blinky *ghost)
         {
             ghost->teleport(13, 14);
             ghost->stopWeakMode();
+            addPoints(100);
+            m_packman_eatghostSFX.play();
         }
         else
         {
             m_pacman->setDead(true);
-            //m_blinky->setDirection(Resources::Direction::Unset);
-//            m_pacman->clearQueueDirection();
+            m_packman_deathSFX.play();
             m_blinky->teleport(-2, -2);
-//			pinky->teleport(-2, -2);
-//			inky->teleport(-2, -2);
-//			clyde->teleport(-2, -2);
         }
     }
 }
@@ -522,16 +533,14 @@ void GameScene::handleGhostFrightening(Inky* ghost)
         {
             ghost->teleport(13, 14);
             ghost->stopWeakMode();
+            addPoints(100);
+            m_packman_eatghostSFX.play();
         }
         else
         {
             m_pacman->setDead(true);
-            //m_blinky->setDirection(Resources::Direction::Unset);
-//            m_pacman->clearQueueDirection();
+            m_packman_deathSFX.play();
             m_inky->teleport(-2, -2);
-//			pinky->teleport(-2, -2);
-//			inky->teleport(-2, -2);
-//			clyde->teleport(-2, -2);
         }
     }
 }
@@ -545,16 +554,13 @@ void GameScene::handleGhostFrightening(Pinky* ghost)
             ghost->teleport(13, 14);
             ghost->stopWeakMode();
             addPoints(100);
+            m_packman_eatghostSFX.play();
         }
         else
         {
             m_pacman->setDead(true);
-            //m_blinky->setDirection(Resources::Direction::Unset);
-//            m_pacman->clearQueueDirection();
+            m_packman_deathSFX.play();
             m_pinky->teleport(-2, -2);
-//			pinky->teleport(-2, -2);
-//			inky->teleport(-2, -2);
-//			clyde->teleport(-2, -2);
         }
     }
 }
@@ -567,15 +573,13 @@ void GameScene::handleGhostFrightening(Clyde* ghost)
         {
             ghost->teleport(13, 14);
             ghost->stopWeakMode();
+            addPoints(100);
+            m_packman_eatghostSFX.play();
         }
         else
         {
             m_pacman->setDead(true);
-            //m_blinky->setDirection(Resources::Direction::Unset);
-//            m_pacman->clearQueueDirection();
-//            m_pinky->teleport(-2, -2);
-//			pinky->teleport(-2, -2);
-//			inky->teleport(-2, -2);
+            m_packman_deathSFX.play();
             m_clyde->teleport(-2, -2);
         }
     }
@@ -594,6 +598,7 @@ void GameScene::checkCollisionWithPrize()
 {
     if (m_pacman->getTileX() == 13 && m_pacman->getTileY() == 20 && !m_prizeCanGenerated)
     {
+        m_packman_eatfruitSFX.play();
         m_prizesPixmapItem[m_countOfWinPrize]->setPixmap(m_prize->pixmap());
         m_countOfWinPrize++;
         if(m_countOfWinPrize >= m_sizeOfPrize)
