@@ -516,7 +516,7 @@ void GameScene::handleGhostFrightening(Blinky *ghost)
             addPoints(100);
             m_packman_eatghostSFX.play();
         }
-        else
+        else if(!m_pacman->isDead())
         {
             m_pacman->setDead(true);
             m_packman_deathSFX.play();
@@ -536,7 +536,7 @@ void GameScene::handleGhostFrightening(Inky* ghost)
             addPoints(100);
             m_packman_eatghostSFX.play();
         }
-        else
+        else if(!m_pacman->isDead())
         {
             m_pacman->setDead(true);
             m_packman_deathSFX.play();
@@ -556,7 +556,7 @@ void GameScene::handleGhostFrightening(Pinky* ghost)
             addPoints(100);
             m_packman_eatghostSFX.play();
         }
-        else
+        else if(!m_pacman->isDead())
         {
             m_pacman->setDead(true);
             m_packman_deathSFX.play();
@@ -576,7 +576,7 @@ void GameScene::handleGhostFrightening(Clyde* ghost)
             addPoints(100);
             m_packman_eatghostSFX.play();
         }
-        else
+        else if(!m_pacman->isDead())
         {
             m_pacman->setDead(true);
             m_packman_deathSFX.play();
