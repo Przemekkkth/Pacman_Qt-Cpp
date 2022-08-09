@@ -72,6 +72,12 @@ public:
     constexpr static const QPoint LIFE_PACKMAN = QPoint(240, 0);
 
     constexpr static int FPS = 120;
+
+    constexpr static const QPoint STRAWBERRY = QPoint(240, 60);
+    constexpr static const QPoint CHERRY = QPoint(240, 90);
+    constexpr static const QPoint BELL = QPoint(240, 120);
+    constexpr static const QPoint KEY = QPoint(270, 60);
+    constexpr static int COUNT_OF_PRIZES = 4;
 };
 
 #endif // RESOURCES_H

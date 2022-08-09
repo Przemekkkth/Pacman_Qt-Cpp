@@ -31,11 +31,13 @@ private:
     void initLabyrinth();
     void initPackman();
     void initGhosts();
+    void initPrize();
     void initGUI();
 
     void renderLabyrinth();
     void renderPacman();
     void renderGhosts();
+    void renderPrize();
     void renderGUI();
     void saveScene();
 
@@ -50,6 +52,9 @@ private:
     void handleGhostFrightening(Pinky* ghost);
     void handleGhostFrightening(Clyde* ghost);
 
+    void generatePrize();
+    void checkCollisionWithPrize();
+
     void addPoints(int n);
     void updateGUI();
     //Visual Game ELEMENTS
@@ -62,6 +67,8 @@ private:
     Inky* m_inky;
     Pinky* m_pinky;
     Clyde* m_clyde;
+    QGraphicsPixmapItem* m_prize;
+    bool m_prizeCanGenerated, m_prizeIsActivated;
     //TO SERVER FRAME
     int currentFrame;
     QTimer m_timer;
@@ -72,8 +79,11 @@ private:
     QFont m_basicFont;
     QGraphicsSimpleTextItem *m_scoreTextItem;
     QPixmap m_lifePacmanPixmap;
-    int m_lives, m_score;
+    int m_lives, m_score, m_sizeOfPrize, m_countOfWinPrize;
     QList<QGraphicsPixmapItem*> m_livesPixmapItem;
+    QPixmap m_strawberryPixmap, m_cherryPixmap, m_bellPixmap, m_keyPixmap;
+    QList<QPixmap> m_possiblePrizesList;
+    QList<QGraphicsPixmapItem*> m_prizesPixmapItem;
 protected:
     virtual void keyPressEvent(QKeyEvent *event) override;
 };

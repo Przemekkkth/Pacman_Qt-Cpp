@@ -10,19 +10,24 @@
 
 GameScene::GameScene(QObject *parent)
     : QGraphicsScene{parent},
-      m_deltaTime(0.0f), m_loopTime(0.0f),
-      m_loopSpeed(int(1000.0f/Resources::FPS) )
+      m_prizeCanGenerated(true), m_deltaTime(0.0f),
+      m_loopTime(0.0f),
+      m_loopSpeed(int(1000.0f/Resources::FPS) ),
+      m_countOfWinPrize(0)
 {
+    srand(time(0));
     loadPixmap();
     setSceneRect(0,0, Resources::RESOLUTION.width(), Resources::RESOLUTION.height());
     setBackgroundBrush(QBrush(Resources::BG_COLOR));
     initLabyrinth();
     initGUI();
+    initPrize();
     initPackman();
     initGhosts();
 
     renderLabyrinth();
     renderGhosts();
+    renderPrize();
     renderPacman();
     renderGUI();
 
@@ -126,11 +131,20 @@ void GameScene::loop()
             m_clyde->setAnimated(true);
         }
 
+        for(int i = 40; i <= 240; i+=40)
+        {
+            if(m_pacman->getDotsEaten() == i)
+            {
+                generatePrize();
+            }
+        }
 
         handleGhostFrightening(m_blinky);
         handleGhostFrightening(m_inky);
         handleGhostFrightening(m_pinky);
         handleGhostFrightening(m_clyde);
+
+        checkCollisionWithPrize();
 
         m_blinky->setPos(m_blinky->getScreenPosX(), m_blinky->getScreenPosY());
         m_inky->setPos(m_inky->getScreenPosX(), m_inky->getScreenPosY());
@@ -199,6 +213,16 @@ void GameScene::loadPixmap()
     {
         qFatal("Things is loaded SUCCESSFULLY");
     }
+
+    m_strawberryPixmap = thingsPixmap.copy(Resources::STRAWBERRY.x(), Resources::STRAWBERRY.y(), Resources::THINGS_TILE_SIZE, Resources::THINGS_TILE_SIZE);
+    m_cherryPixmap = thingsPixmap.copy(Resources::CHERRY.x(), Resources::CHERRY.y(), Resources::THINGS_TILE_SIZE, Resources::THINGS_TILE_SIZE);
+    m_bellPixmap = thingsPixmap.copy(Resources::BELL.x(), Resources::BELL.y(), Resources::THINGS_TILE_SIZE, Resources::THINGS_TILE_SIZE);
+    m_keyPixmap = thingsPixmap.copy(Resources::KEY.x(), Resources::KEY.y(), Resources::THINGS_TILE_SIZE, Resources::THINGS_TILE_SIZE);
+
+    m_possiblePrizesList.push_back(m_strawberryPixmap);
+    m_possiblePrizesList.push_back(m_cherryPixmap);
+    m_possiblePrizesList.push_back(m_bellPixmap);
+    m_possiblePrizesList.push_back(m_keyPixmap);
 }
 
 void GameScene::initLabyrinth()
@@ -271,6 +295,13 @@ void GameScene::initGhosts()
 
 }
 
+void GameScene::initPrize()
+{
+    m_prize = new QGraphicsPixmapItem();
+    m_prize->setPos(13 * Resources::LABYRINTH_TILE_SIZE + 8.0f + 8.0f - Resources::THINGS_TILE_SIZE/2, 20 * Resources::LABYRINTH_TILE_SIZE + 8.0f - Resources::THINGS_TILE_SIZE/2);
+    m_prize->setPixmap(QPixmap());
+}
+
 void GameScene::initGUI()
 {
     int id = QFontDatabase::addApplicationFont(Resources::PATH_TO_FONT);
@@ -290,6 +321,14 @@ void GameScene::initGUI()
         pixmapItem->setPixmap(m_lifePacmanPixmap);
         pixmapItem->setPos(i * Resources::THINGS_TILE_SIZE, 18.5 * Resources::THINGS_TILE_SIZE);
         m_livesPixmapItem.append(pixmapItem);
+    }
+
+    m_sizeOfPrize = 6;
+    for(int i = 0; i < m_sizeOfPrize; ++i)
+    {
+        QGraphicsPixmapItem* pixmapItem = new QGraphicsPixmapItem();
+        pixmapItem->setPos(Resources::RESOLUTION.width() - (i+1) * Resources::THINGS_TILE_SIZE, 18.5 * Resources::THINGS_TILE_SIZE);
+        m_prizesPixmapItem.append(pixmapItem);
     }
 }
 
@@ -317,6 +356,11 @@ void GameScene::renderGhosts()
     addItem(m_clyde);
 }
 
+void GameScene::renderPrize()
+{
+    addItem(m_prize);
+}
+
 void GameScene::renderGUI()
 {
     addItem(m_scoreTextItem);
@@ -324,6 +368,11 @@ void GameScene::renderGUI()
     for(int i = 0; i < m_lives; ++i)
     {
         addItem(m_livesPixmapItem.at(i));
+    }
+
+    for(int i = 0; i < m_sizeOfPrize; ++i)
+    {
+        addItem(m_prizesPixmapItem.at(i));
     }
 }
 
@@ -533,6 +582,31 @@ void GameScene::handleGhostFrightening(Clyde* ghost)
 //			inky->teleport(-2, -2);
             m_clyde->teleport(-2, -2);
         }
+    }
+}
+
+void GameScene::generatePrize()
+{
+    if(m_prizeCanGenerated)
+    {
+        m_prizeCanGenerated = false;
+        m_prize->setPixmap(m_possiblePrizesList[rand() % Resources::COUNT_OF_PRIZES]);
+    }
+}
+
+void GameScene::checkCollisionWithPrize()
+{
+    if (m_pacman->getTileX() == 13 && m_pacman->getTileY() == 20 && !m_prizeCanGenerated)
+    {
+        m_prizesPixmapItem[m_countOfWinPrize]->setPixmap(m_prize->pixmap());
+        m_countOfWinPrize++;
+        if(m_countOfWinPrize >= m_sizeOfPrize)
+        {
+            m_countOfWinPrize--;
+        }
+        m_prize->setPixmap(QPixmap());
+        addPoints(50);
+        m_prizeCanGenerated = true;
     }
 }
 
