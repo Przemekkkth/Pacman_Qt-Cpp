@@ -19,4 +19,4 @@ qmake && make
 ## Addons
 * [Qt](https://www.qt.io/) - Cross-Platform software for embedded & desktop
 * [Font](https://www.dafont.com/) - font
-* [Play online](Play online: https://przemekkkth.github.io/pacman/index.html) - game hosted on GitHub
+* [Play online](https://przemekkkth.github.io/pacman/index.html) - game hosted on GitHub
